@@ -1,0 +1,11 @@
+# turnserver.conf — Esempio minimale (coturn)
+listening-port=3478
+fingerprint
+lt-cred-mech
+realm=remoteglasses
+user=user:pass
+no-tls
+no-dtls
+# Consigliato: imposta listening-ip e relay-ip con gli IP del server
+# listening-ip=YOUR_PUBLIC_IP
+# relay-ip=YOUR_PUBLIC_IP

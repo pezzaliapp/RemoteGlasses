@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RemoteGlasses — WebRTC PWA</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111">
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; padding:16px; background:#0d0d0d; color:#eaeaea; }
+    header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    h1 { font-size: 20px; margin: 0; letter-spacing: .3px; }
+    .badge { padding:4px 8px; border-radius:999px; background:#1a1a1a; border:1px solid #2a2a2a; font-size:12px; }
+    .card { background:#121212; padding:14px; border-radius:14px; border:1px solid #1f1f1f; margin:12px 0; }
+    label { display:block; margin:6px 0 4px; font-size:13px; opacity:.9; }
+    input, select, button { width:100%; padding:10px; border-radius:10px; border:1px solid #2a2a2a; background:#0a0a0a; color:#eaeaea; }
+    button { cursor:pointer; }
+    video { width:100%; max-height: 48vh; background:black; border-radius:12px; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    small.status { display:block; margin-top:6px; opacity:.85; }
+    a { color:#86b7ff; }
+    footer { margin-top: 18px; opacity:.7; font-size:12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="icon-192.png" width="28" height="28" alt="logo" style="border-radius:6px;border:1px solid #2a2a2a;">
+    <h1>RemoteGlasses</h1>
+    <span class="badge">WebRTC • P2P</span>
+    <span class="badge">PWA</span>
+  </header>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label>Ruolo</label>
+        <select id="role">
+          <option value="glasses">Occhiali (trasmetti)</option>
+          <option value="viewer">Viewer (ricevi)</option>
+        </select>
+      </div>
+      <div>
+        <label>Room ID</label>
+        <input id="roomId" placeholder="es. officina-01">
+      </div>
+    </div>
+    <label>Signaling server (WebSocket)</label>
+    <input id="wsUrl" placeholder="ws://localhost:8080">
+    <div class="row" style="margin-top:10px">
+      <button id="startBtn">Avvia sessione</button>
+      <button id="hangupBtn" disabled>Termina</button>
+    </div>
+    <small class="status mono" id="status">Pronto.</small>
+  </div>
+
+  <div class="card">
+    <video id="localVideo" playsinline muted></video>
+    <video id="remoteVideo" playsinline></video>
+  </div>
+
+  <div class="card">
+    <label>Link per il Viewer (da condividere)</label>
+    <input id="shareLink" readonly>
+  </div>
+
+  <footer>
+    <div>Consigliato per occhiali Android con browser moderno (RealWear, Vuzix) o smartphone fissato. Per NAT restrittivi configura un TURN.</div>
+    <div><a href="#" onclick="installPWA();return false;">Installa come PWA</a> • <a href="README.md">Guida rapida</a></div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
